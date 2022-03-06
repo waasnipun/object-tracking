@@ -1,5 +1,5 @@
 import tensorflow as tf
-import tensorflow_hub as hub
+# import tensorflow_hub as hub
 
 import numpy as np
 from PIL import Image
@@ -8,10 +8,10 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 # Maximum objects to be classified in the image
-MAX_OBJECTS = 10
+MAX_OBJECTS = 2
 
 # Labels of interest
-LABEL_SELECTOR = set([b'Person'])
+LABEL_SELECTOR = set([b'Houseplant'])
 
 def draw_bounding_box_on_image(image, ymin, xmin, ymax, xmax, color,
                                font, thickness=4, display_str_list=()):
@@ -96,8 +96,11 @@ def non_max_suppression(boxes, scores):
 
 class ObjectRecognition:
     def __init__(self):
-        module_handle = "https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1"
-        self.model = hub.load(module_handle).signatures['default']
+        # module_handle = "https://tfhub.dev/google/openimages_v4/ssd/mobilenet_v2/1"
+        self.model = tf.saved_model.load(
+            "/Users/nipunwaas/Documents/FYP/object-tracking/mobilenet_model"
+        )
+        self.model = self.model.signatures['default']
 
     def run_object_recognition(self, frame):
         converted_img = tf.image.convert_image_dtype(frame, tf.float32)[tf.newaxis, ...]

@@ -71,11 +71,13 @@ def run(image, detection, config, min_confidence,
 
     draw_trackers(tracker.tracks, img_cpy)
 
+    return tracker.tracks,detections
+
 def run_deep_sort(image, detection, config):
-    min_confidence = 0.1
+    min_confidence = 0.02 # was in 1.0
     nms_max_overlap = 1.0
     min_detection_height = 0.0
-    run(image, detection, config, min_confidence, nms_max_overlap, min_detection_height)
+    return run(image, detection, config, min_confidence, nms_max_overlap, min_detection_height)
 
 class DeepSORTConfig:
     def __init__(self, max_cosine_distance=0.2, nn_budget = 100):
