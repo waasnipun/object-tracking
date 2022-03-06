@@ -48,3 +48,4 @@ Simple Online and Realtime Tracking with a Deep Association Metric [arxiv link](
 - Python3
 - TensorFlow >= 2.1
 - OpenCV
+# object-tracking
